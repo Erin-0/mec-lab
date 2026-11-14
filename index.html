@@ -7,7 +7,9 @@
     <title>🎡 Laboratoire Physique 3D — TP1 Gyroscope & TP2 Pendule Pesant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a710809297d540958be6f40f11bc2322"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics -->
+    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "a710809297d540958be6f40f11bc2322"}'></script><!-- End Cloudflare Web Analytics -->
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -1143,12 +1145,435 @@
                 width: 270px;
             }
         }
+
+        /* ============================================================
+   📵 MOBILE GUARD — شاشة منع الهواتف
+   ============================================================ */
+        #mobile-guard {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            overflow-y: auto;
+            background:
+                radial-gradient(circle at 18% 18%, rgba(244, 201, 78, 0.16), transparent 52%),
+                radial-gradient(circle at 82% 84%, rgba(78, 205, 196, 0.15), transparent 52%),
+                #0a101d;
+            scrollbar-width: thin;
+            scrollbar-color: var(--sun) #10182b;
+        }
+
+        #mobile-guard[hidden] {
+            display: none;
+        }
+
+        #mobile-guard::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #mobile-guard::-webkit-scrollbar-track {
+            background: #10182b;
+        }
+
+        #mobile-guard::-webkit-scrollbar-thumb {
+            background: var(--sun);
+            border-radius: 4px;
+            border: 2px solid #10182b;
+        }
+
+        .mg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.5;
+            pointer-events: none;
+            animation: mgDrift 11s ease-in-out infinite alternate;
+        }
+
+        .mg-blob.b1 {
+            width: 340px;
+            height: 340px;
+            left: -90px;
+            top: -80px;
+            background: rgba(78, 168, 222, 0.35);
+        }
+
+        .mg-blob.b2 {
+            width: 300px;
+            height: 300px;
+            right: -70px;
+            bottom: -60px;
+            background: rgba(244, 201, 78, 0.30);
+            animation-delay: -5s;
+        }
+
+        @keyframes mgDrift {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(46px, 30px) scale(1.15);
+            }
+        }
+
+        .mg-card {
+            position: relative;
+            margin: auto;
+            background: var(--paper);
+            border: var(--border-lg);
+            border-radius: 26px;
+            box-shadow: var(--shadow-lg);
+            padding: 28px 30px;
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+            animation: popIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mg-pill {
+            display: inline-block;
+            background: #11192d;
+            border: 2px solid var(--ink);
+            border-radius: 99px;
+            color: var(--sun);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            margin-bottom: 16px;
+        }
+
+        .mg-devices {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .mg-dev {
+            position: relative;
+            width: 92px;
+            height: 92px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 46px;
+            background: var(--cream);
+            border: var(--border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mg-badge {
+            position: absolute;
+            right: -9px;
+            top: -9px;
+            width: 30px;
+            height: 30px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--paper);
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+        }
+
+        .mg-dev.phone {
+            animation: mgShake 2.6s ease-in-out infinite;
+            border-color: #7a2e2e;
+        }
+
+        .mg-dev.laptop {
+            animation: mgFloat 3.2s ease-in-out infinite;
+            border-color: #1f7a4e;
+        }
+
+        .mg-arrow {
+            font-size: 26px;
+            color: var(--sun);
+            animation: mgNudge 1.4s ease-in-out infinite;
+        }
+
+        @keyframes mgShake {
+
+            0%,
+            72%,
+            100% {
+                transform: rotate(0);
+            }
+
+            76% {
+                transform: rotate(-7deg);
+            }
+
+            80% {
+                transform: rotate(7deg);
+            }
+
+            84% {
+                transform: rotate(-5deg);
+            }
+
+            88% {
+                transform: rotate(4deg);
+            }
+
+            92% {
+                transform: rotate(0);
+            }
+        }
+
+        @keyframes mgFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-7px);
+            }
+        }
+
+        @keyframes mgNudge {
+
+            0%,
+            100% {
+                transform: translateX(0);
+                opacity: 0.75;
+            }
+
+            50% {
+                transform: translateX(6px);
+                opacity: 1;
+            }
+        }
+
+        .mg-card h1 {
+            margin: 0 0 10px;
+            font-size: 25px;
+            font-weight: 700;
+            color: var(--text);
+            text-shadow: 3px 3px 0 rgba(78, 205, 196, 0.28);
+            line-height: 1.25;
+        }
+
+        .mg-desc {
+            margin: 0 0 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #b7c6e4;
+            line-height: 1.55;
+        }
+
+        .mg-needs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .mg-need {
+            background: var(--cream);
+            border: 2px solid var(--ink);
+            border-radius: 14px;
+            padding: 10px 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #c7d4ec;
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+        }
+
+        .mg-need b {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .mg-diag {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 14px;
+            background: #0d1526;
+            border: 2px dashed #335387;
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--sky);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .mg-diag b {
+            color: var(--mint);
+        }
+
+        .mg-copy-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--sun);
+            margin: 0 0 8px;
+        }
+
+        .mg-url {
+            width: 100%;
+            background: #09111e;
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            color: #9ec5f8;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            text-align: center;
+            text-overflow: ellipsis;
+        }
+
+        .mg-url:focus {
+            outline: none;
+            border-color: var(--sky);
+        }
+
+        .mg-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mg-btn {
+            flex: 1;
+            border: var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            padding: 13px 16px;
+            font-family: inherit;
+            font-size: 15.5px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--ink);
+            background: var(--sun);
+            transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
+        }
+
+        .mg-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.7);
+        }
+
+        .mg-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0 0 0 transparent;
+        }
+
+        .mg-btn.share {
+            background: var(--sky);
+        }
+
+        .mg-btn.copied {
+            background: var(--mint);
+        }
+
+        .mg-btn.copy-fail {
+            background: var(--accent);
+        }
+
+        .mg-hint {
+            min-height: 18px;
+            margin: 10px 0 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .mg-hint.ok {
+            color: #57de9e;
+        }
+
+        .mg-foot {
+            margin: 14px 0 0;
+            font-size: 11.5px;
+            color: #6e7fa3;
+            font-weight: 600;
+        }
+
+        .is-phone #start-overlay,
+        .is-phone #top-bar,
+        .is-phone #task-panel,
+        .is-phone #right-stack,
+        .is-phone #inspector-panel,
+        .is-phone #crosshair {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .mg-card {
+                padding: 22px 18px;
+            }
+
+            .mg-card h1 {
+                font-size: 21px;
+            }
+
+            .mg-dev {
+                width: 76px;
+                height: 76px;
+                font-size: 38px;
+            }
+
+            .mg-actions {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <div id="canvas-container"></div>
+    <!-- 📵 Mobile Guard : écran de blocage téléphone -->
+    <div id="mobile-guard" hidden role="alertdialog" aria-modal="true" aria-labelledby="mg-title">
+        <div class="mg-blob b1"></div>
+        <div class="mg-blob b2"></div>
+        <div class="mg-card">
+            <div class="mg-pill">🧪 Labo 3D — Accès mobile limité</div>
+            <div class="mg-devices">
+                <div class="mg-dev phone">📱<span class="mg-badge">⛔</span></div>
+                <div class="mg-arrow">➜</div>
+                <div class="mg-dev laptop">💻<span class="mg-badge">✅</span></div>
+            </div>
+            <h1 id="mg-title">Ce laboratoire nécessite un ordinateur 🖥️</h1>
+            <p class="mg-desc">Un <b>écran de téléphone</b> a été détecté. La simulation 3D ne fonctionnera pas
+                correctement ici : les manipulations (glisser, viser, clavier) demandent un ordinateur avec un grand
+                écran.</p>
+            <div class="mg-needs">
+                <div class="mg-need"><b>🖥️</b>Grand écran</div>
+                <div class="mg-need"><b>⌨️</b>Clavier (WASD…)</div>
+                <div class="mg-need"><b>🖱️</b>Souris &amp; glisser</div>
+            </div>
+            <div class="mg-diag">
+                <span>📐 Écran : <b id="mg-res">--</b></span>
+                <span>📟 Type : <b id="mg-type">--</b></span>
+                <span>👆 Tactile : <b id="mg-touch">--</b></span>
+            </div>
+            <p class="mg-copy-label">👇 Copiez le lien puis ouvrez-le sur votre ordinateur</p>
+            <input class="mg-url" id="mg-url" type="text" readonly value="" spellcheck="false" autocapitalize="off"
+                autocomplete="off" />
+            <div class="mg-actions">
+                <button class="mg-btn" id="mg-copy">🔗 Copier le lien</button>
+                <button class="mg-btn share" id="mg-share" hidden>📤 Partager</button>
+            </div>
+            <p class="mg-hint" id="mg-hint">Le lien de cette page est prêt à être copié.</p>
+            <p class="mg-foot">🎡 Gyroscope · 🕰️ Pendule pesant · ⚙️ Rotation vous attendent sur PC !</p>
+        </div>
+    </div>
 
     <!-- Start overlay -->
     <div id="start-overlay">
@@ -1508,6 +1933,119 @@
         </div>
     </div>
 
+    <script>
+        /* ============================================================
+           📵 MOBILE GUARD — كشف دقيق: UA + userAgentData + شاشة + لمس
+           يعمل حتى لو فشل تحميل Three.js.
+           للاختبار: F12 → أيقونة الهاتف (Device Toolbar) ثم أعد التحميل.
+           ============================================================ */
+        (function () {
+            'use strict';
+            var overlay = document.getElementById('mobile-guard');
+            var resEl = document.getElementById('mg-res');
+            var typeEl = document.getElementById('mg-type');
+            var touchEl = document.getElementById('mg-touch');
+            var urlEl = document.getElementById('mg-url');
+            var copyBtn = document.getElementById('mg-copy');
+            var shareBtn = document.getElementById('mg-share');
+            var hintEl = document.getElementById('mg-hint');
+            var hintTimer = null;
+            function detect() {
+                var ua = navigator.userAgent || '';
+                var uaDataMobile = !!(navigator.userAgentData && navigator.userAgentData.mobile);
+                var touchPts = navigator.maxTouchPoints || 0;
+                var isIPadOS = /Macintosh/i.test(ua) && touchPts > 1; // iPad يتنكر كـ Mac
+                var isTablet = /iPad|Tablet|PlayBook|Silk|Kindle/i.test(ua) || isIPadOS ||
+                    (/Android/i.test(ua) && !/Mobile/i.test(ua));
+                var isPhoneUA = /iPhone|iPod|Windows Phone|IEMobile|BlackBerry|BB10|Opera Mini|webOS/i.test(ua) ||
+                    (/Android/i.test(ua) && /Mobile/i.test(ua));
+                var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+                var noHover = window.matchMedia && window.matchMedia('(hover: none)').matches;
+                var screenMin = Math.min(screen.width || 99999, screen.height || 99999);
+                var viewMin = Math.min(window.innerWidth || 99999, window.innerHeight || 99999);
+                var smallScreen = Math.min(screenMin, viewMin) < 600; // يمسك الهاتف حتى بالوضع الأفقي
+                var phoneByUA = isPhoneUA || (uaDataMobile && !isTablet);
+                var phoneByScreen = smallScreen && touchPts > 0 && (coarse || noHover);
+                return {
+                    blocked: !!(phoneByUA || phoneByScreen),
+                    tablet: !!isTablet,
+                    touch: touchPts > 0 || coarse,
+                    w: Math.round(window.innerWidth || 0),
+                    h: Math.round(window.innerHeight || 0),
+                    sw: Math.round(screen.width || 0),
+                    sh: Math.round(screen.height || 0)
+                };
+            }
+            function apply() {
+                var d = detect();
+                window.__LAB_BLOCKED__ = d.blocked;
+                document.documentElement.classList.toggle('is-phone', d.blocked);
+                overlay.hidden = !d.blocked;
+                resEl.textContent = d.w + ' × ' + d.h + ' px (écran ' + d.sw + ' × ' + d.sh + ')';
+                typeEl.textContent = d.blocked ? 'Téléphone 📵' : (d.tablet ? 'Tablette' : 'Ordinateur 🖥️');
+                touchEl.textContent = d.touch ? 'Oui' : 'Non';
+                if (d.blocked && !overlay.contains(document.activeElement)) {
+                    try { copyBtn.focus({ preventScroll: true }); } catch (e) { }
+                }
+            }
+            urlEl.value = location.href;
+            urlEl.addEventListener('click', function () { urlEl.select(); });
+            function feedback(ok) {
+                clearTimeout(hintTimer);
+                copyBtn.classList.remove('copied', 'copy-fail');
+                if (ok) {
+                    copyBtn.classList.add('copied');
+                    copyBtn.textContent = '✅ Lien copié !';
+                    hintEl.textContent = 'Collez-le dans le navigateur de votre ordinateur 💻';
+                    hintEl.className = 'mg-hint ok';
+                } else {
+                    copyBtn.classList.add('copy-fail');
+                    copyBtn.textContent = '⚠️ Copie manuelle';
+                    hintEl.textContent = 'Lien sélectionné : faites Ctrl+C (ou appui long → Copier).';
+                    hintEl.className = 'mg-hint';
+                    urlEl.focus(); urlEl.select();
+                }
+                hintTimer = setTimeout(function () {
+                    copyBtn.classList.remove('copied', 'copy-fail');
+                    copyBtn.textContent = '🔗 Copier le lien';
+                    hintEl.textContent = 'Le lien de cette page est prêt à être copié.';
+                    hintEl.className = 'mg-hint';
+                }, 2600);
+            }
+            function legacyCopy() {
+                var ok = false;
+                try {
+                    urlEl.focus(); urlEl.select();
+                    urlEl.setSelectionRange(0, urlEl.value.length);
+                    ok = document.execCommand('copy');
+                } catch (e) { ok = false; }
+                feedback(ok);
+            }
+            copyBtn.addEventListener('click', function () {
+                var url = location.href;
+                if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+                    navigator.clipboard.writeText(url).then(function () { feedback(true); }, legacyCopy);
+                } else {
+                    legacyCopy();
+                }
+            });
+            if (navigator.share) {
+                shareBtn.hidden = false;
+                shareBtn.addEventListener('click', function () {
+                    navigator.share({
+                        title: document.title,
+                        text: 'Ouvre ce labo de physique sur ton ordinateur 🖥️',
+                        url: location.href
+                    }).catch(function () { });
+                });
+            }
+            var rTimer = null;
+            function onResize() { clearTimeout(rTimer); rTimer = setTimeout(apply, 150); }
+            window.addEventListener('resize', onResize);
+            window.addEventListener('orientationchange', onResize);
+            apply();
+        })();
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         (function () {
@@ -5207,6 +5745,7 @@
             let lastTime = performance.now();
             function animate(now) {
                 requestAnimationFrame(animate);
+                if (window.__LAB_BLOCKED__) { lastTime = now; return; } // 📵 موقوف على الهاتف
                 const dt = Math.min((now - lastTime) / 1000, 0.05);
                 lastTime = now;
                 simTime += dt;
@@ -5238,6 +5777,7 @@
             // UI EVENTS
             // =====================================================================
             document.getElementById('btn-enter').onclick = () => {
+                if (window.__LAB_BLOCKED__) return; // 📵 ممنوع الدخول من الهاتف
                 document.getElementById('start-overlay').style.display = 'none';
                 state.started = true;
                 toast('Bienvenue dans TP1 ! Utilisez le sélecteur en haut à gauche pour basculer vers TP2 ou TP3.');
